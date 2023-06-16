@@ -15,22 +15,33 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * SecurityConfig.
+ *
+ * @author Motilal Kumar.
+ * version 1.0
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
-
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
-
     @Autowired
     private InvalidUserAuthenticationEntryPoint authenticationEntryPoint;
-
     @Autowired
     private SecurityFilter securityFilter;
 
+    /**
+     * authenticationManager.
+     *
+     * @return
+     * @throws Exception
+     *
+     */
     @Override
     @Bean
     protected AuthenticationManager authenticationManager()
@@ -39,6 +50,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    /**
+     * configure.
+     * @param auth the {@link AuthenticationManagerBuilder} to use
+     * @throws Exception
+     *
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -46,12 +63,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(bcryptPasswordEncoder);
     }
 
+    /**
+     * configure.
+     *
+     * @param http the {@link HttpSecurity} to modify
+     * @throws Exception
+     *
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user/save","/user/login").permitAll()
+                .antMatchers("/user/save","/user/fetch","/user/login").permitAll()
+                //.antMatchers("/user/fetch","/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

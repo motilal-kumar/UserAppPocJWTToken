@@ -4,6 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * UserResponse.
+ *
+ * @author Motilal  Kumar.
+ *  @version 1.0
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

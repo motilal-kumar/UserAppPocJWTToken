@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class UserAppPocJwtTokenApplication {
 
     public static void main(String[] args) {
+
+        System.out.println("Hello Main Method:-----");
         SpringApplication.run(UserAppPocJwtTokenApplication.class, args);
     }
 

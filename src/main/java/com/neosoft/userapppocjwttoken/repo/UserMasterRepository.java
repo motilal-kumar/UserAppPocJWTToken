@@ -9,13 +9,23 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * UserMasterRepository.
+ *
+ * @author Motilal Kumar.
+ * @version 1.0
+ *
+ */
 @Repository
 public interface UserMasterRepository extends JpaRepository<UserMaster, Integer> {
 
-    UserMaster findUserByDepartment(String department);
-
-   @Query(value = "SELECT * FROM user_master um WHERE LOWER(um.first_name) LIKE LOWER(CONCAT('%',:query, '%'))", nativeQuery = true)
+    //List<UserMaster> findUserByDepartment(String department);
+    List<UserMaster> findUserByEmailId(String emailId);
+   @Query(value = "SELECT * FROM user_master_tab um WHERE LOWER(um.first_name) LIKE LOWER(CONCAT('%',:query, '%'))", nativeQuery = true)
     List<UserMaster> searchUserMaster(@Param("query") String query);
+
+    Boolean  existsByEmailId(String emailId);
+   //Boolean  existsByFirstNameAndLastName(String firstName, String lastName);
 
 
 }

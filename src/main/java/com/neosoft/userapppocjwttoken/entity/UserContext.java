@@ -1,19 +1,23 @@
 package com.neosoft.userapppocjwttoken.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
+/**
+ *UserContext.
+ *
+ * @author  Motilal Kumar.
+ * version  1.0
+ *
+ */
 @Data
 @Entity
 @Table(name= "user_contact_tab")
 public class UserContext {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,17 +25,21 @@ public class UserContext {
     private int contextId;
 
     @NotNull(message = "Mobile No number can not be null")
-    private long mobileNo;
+    @Size(min = 10, max = 12, message = "Mobile Number should be 10 digit")
+    @Pattern(regexp = "(0|91)?[6-9][0-9]{9}")
+    private String mobileNo;
 
     @NotNull(message = "Alternate Mobile No number can not be null")
-    private long alternateMobileNo;
+    @Size(min = 10, max = 12, message = "Alternate Mobile Number should be 10 digit")
+    @Pattern(regexp = "(0|91)?[6-9][0-9]{9}")
+    private String alternateMobileNo;
 
-    @NotNull(message = "Email  can not be null")
-    private String emailId;
+    @NotNull(message = "Department can not be null")
+    @Size(min = 2, max = 10, message = "The length of Department must be between 2 and 10 characters.")
+    private String department;
 
-    @Size(max = 510)
-    @NotNull(message = "address can not be null")
-    private String address;
-
+   @NotNull(message = "Address is required.")
+   @Size(min = 2, max = 20, message = "The length of Address must be between 2 and 20 characters.")
+   private String address;
 
 }
